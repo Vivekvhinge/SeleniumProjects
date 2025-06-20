@@ -1,0 +1,238 @@
+package StepDefinition;
+
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import PageObject.AddNewCustomerPage;
+import PageObject.LoginPage;
+import PageObject.SearchCustomerPage;
+import io.cucumber.java.en.*;
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Stepdef { //we call the method class created on pageobject by using pageobj .methodname
+
+	public  WebDriver driver; //created webdriver object
+	public LoginPage loginpg; //created login page object 
+	public AddNewCustomerPage AddNewCustPg;  //created AddNewCustomerPage object 
+	public SearchCustomerPage SearchCustomerPg; //created SearchCustomerPage object 
+
+
+
+	@Given("User launch chrome browser")
+	public void user_launch_chrome_browser() {
+
+		//launch browser 
+		WebDriverManager.chromedriver().setup();
+		driver=new ChromeDriver();
+
+		//intilize login page with parameter of driver cz in "login page its give as para" to run the  browser
+		loginpg=new LoginPage(driver);  
+		
+		//intilize AddNewCustomerPg  with parameter of driver cz in "addnewcust page its give as para" to run the  browser
+		AddNewCustPg=new AddNewCustomerPage(driver);
+
+		//intilize SearchCustomerPg  with parameter of driver cz in "SearchCustomerPg page its give as para" to run the  browser
+		SearchCustomerPg=new SearchCustomerPage(driver);
+
+	}
+
+
+	@When("User open URL: {string}")
+	public void user_open_url(String url) { //url will get from feature file
+
+		driver.get(url); //calling received url 
+
+	}
+
+	@When("user enters email as {string} and password as {string}")
+	public void user_enters_email_as_and_password_as(String emailadd, String password) { // email & pwd will get from feature file and stored in string to execute
+		//with loginpg obj calling the enteremail with string parameter
+		loginpg.enteremail(emailadd);
+
+		//with loginpg obj calling the enterpassword with string parameter
+		loginpg.enterpassword(password);
+	}
+
+	@When("click on login")
+	public void click_on_login() {
+		//with loginpg obj calling the clickloginbtn to do action
+		
+		try {
+			Thread.sleep(4000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		loginpg.clickloginbtn();
+
+	}
+
+	
+	///login feature ////////////////
+	@Then("page title should be {string}")
+	public void page_title_should_be(String expectedtitle) {
+		String actualtitle=driver.getTitle();
+
+		if (actualtitle.equals(expectedtitle)) {
+			Assert.assertTrue(true); //pass
+
+		} else {
+			Assert.assertTrue(false); //fail
+
+		}
+
+
+	}
+
+	@When("user click on log out link")
+	public void user_click_on_log_out_link() {
+		loginpg.clicklogoutbtn();
+	}
+
+	//	@Then("Page title should be {string}")
+	//	public void page_title_should_be(String string) {
+	//	   
+	//	}
+
+	@Then("Close Browser")
+	public void close_browser() {
+		
+		driver.close();
+		driver.quit();
+
+	}
+	
+	
+	
+	////////////add new customer//////////
+	
+	
+	@Then("User can view Dashboad")
+	public void user_can_view_dashboad() {
+	String actualtitle=AddNewCustPg.getPageTitle();
+	String expectedtitle="Dashboard / nopCommerce administration";
+	
+	if (actualtitle.equals(expectedtitle)) {
+		Assert.assertTrue(true);
+		
+	} else {
+		Assert.assertTrue(false);
+
+	}
+		
+		
+	    
+	}
+
+	@When("User click on customers Menu")
+	public void user_click_on_customers_menu() {
+		AddNewCustPg.clickOnCustomersMenu();
+		
+	    
+	}
+
+	@When("click on customers Menu Item")
+	public void click_on_customers_menu_item() {
+		AddNewCustPg.clickOnCustomersMenuItem();
+	    
+	}
+
+	@When("click on Add new button")
+	public void click_on_add_new_button() {
+		AddNewCustPg.clickOnAddnew();
+	    
+	}
+
+	@Then("User can view Add new customer page")
+	public void user_can_view_add_new_customer_page() {
+	String actualtitle	=AddNewCustPg.getPageTitle();
+	String expectedtitle="Add a new customer  / nopCommerce administration";
+	if (actualtitle.equals(expectedtitle)) {
+		Assert.assertTrue(true);
+		
+	} else {
+		Assert.assertTrue(false);
+
+	}
+	    
+	}
+
+	@When("User enter customer info")
+	public void user_enter_customer_info() {
+		
+		AddNewCustPg.enterEmail("vivek@gmail.com");
+		AddNewCustPg.enterPassword("vivek@gmail.com");
+		AddNewCustPg.enterFirstName("vivek");
+		AddNewCustPg.enterLastName("hinge");
+		AddNewCustPg.enterDob("6/14/2025");
+		AddNewCustPg.enterCompanyName("vivekenterprise");
+		AddNewCustPg.enterAdminContent("admin contenttt");
+		AddNewCustPg.enterManagerOfVendor("Vendor 1");
+		AddNewCustPg.enterGender("male");
+		
+	}
+
+	@When("click on Save button")
+	public void click_on_save_button() {
+		AddNewCustPg.clickOnSave();
+	    
+	}
+
+	@Then("User can view confirmation message {string}")
+	public void user_can_view_confirmation_message(String expectedconfirmatiommsg) 
+	{
+		
+	    String bodytagtex=driver.findElement(By.tagName("body")).getText();
+	    if (bodytagtex.contains(expectedconfirmatiommsg)) {
+	    	Assert.assertTrue(true);
+			
+		} else {
+			
+			Assert.assertTrue(false);
+		}
+	}
+	
+	/////////////////SEARCH CUSTOMER PAGE /////////
+	@When("Enter customer EMail")
+	public void enter_customer_e_mail() 
+	{
+		SearchCustomerPg.enteremailadd("victoria_victoria@nopCommerce.com");
+	    
+	}
+
+	@When("Click on search button")
+	public void click_on_search_button() 
+	{
+		SearchCustomerPg.clickonsearchbtn();
+	    
+	}
+
+	@Then("User should found Email in the Search table")
+	public void user_should_found_email_in_the_search_table() 
+	{
+		String expectedemail="victoria_victoria@nopCommerce.com";
+		Assert.assertTrue(SearchCustomerPg.searchresult(expectedemail));
+		
+		//or 
+		/*if(SearchCustomerPg.searchresult(expectedemail)==true)
+		{
+			Assert.assertTrue(true);
+		}
+		else
+		{
+			Assert.assertTrue(false);
+		}*/
+	    
+	}
+	
+	
+	
+	
+	
+	
+
+
+}

@@ -1,0 +1,28 @@
+ //name=PropertiesConfig
+ 
+property.filename = logs
+appenders = console, file //means showing logs in console or file
+
+
+appender.console.type = Console  //showing in console
+appender.console.name = STDOUT  //name of console
+appender.console.layout.type = PatternLayout   //type of console
+appender.console.layout.pattern = [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n  //pattern for console
+
+
+appender.file.type = File  //showing in file
+appender.file.name = LOGFILE  //filename
+appender.file.fileName=${filename}/mylog.log
+appender.file.layout.type=PatternLayout //type of file
+appender.file.layout.pattern=[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n  //pattren 
+
+
+loggers=file
+logger.file.name=Stepdef //file name to be rename
+logger.file.level = debug   //levels for logging
+logger.file.appenderRefs = file
+logger.file.appenderRef.file.ref = LOGFILE
+
+rootLogger.level = off
+rootLogger.appenderRefs = stdout
+rootLogger.appenderRef.stdout.ref = STDOUT

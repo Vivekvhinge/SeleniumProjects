@@ -1,0 +1,17 @@
+package StepDefinition;
+
+import io.cucumber.java.en.Then;
+
+public class CloseStep extends BaseClass {
+	
+	
+	@Then("Close Browser")
+	public void close_browser() {
+		// This step definition can also call driver.quit() if you prefer,
+		// but typically it's handled by the @After hook for consistency.
+		// If you keep this step, ensure it only quits if the driver is still active.
+		// For now, let's rely on the @After hook.
+		 driver.quit(); // Keep this commented if @After is handling it
+	}
+
+}

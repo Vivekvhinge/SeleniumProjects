@@ -1,0 +1,25 @@
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Myfirst {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		
+		System.setProperty("webdriver.chrome.driver", 
+				"D:\\selenium\\chromedriver-win64 136\\chromedriver-win64\\chromedriver.exe");
+		//for giving cromedriver path 
+		
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://www.saucedemo.com/v1/");
+		
+		driver.manage().window().maximize(); //for maxing the window size
+		driver.close(); //for closing the window 
+		
+		
+		
+		
+	}
+
+}

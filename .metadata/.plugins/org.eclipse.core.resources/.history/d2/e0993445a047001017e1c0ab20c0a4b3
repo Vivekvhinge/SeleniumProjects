@@ -1,0 +1,26 @@
+package TestRunner; // Keep your package name as is
+
+import org.junit.runner.RunWith;
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
+
+@RunWith(Cucumber.class)
+@CucumberOptions(
+		features = "src//test//resources//Features",  // <-- Change this line
+    // Ensure you use FORWARD SLASHES (/) as shown, even on Windows.
+    // Make sure the casing exactly matches your file system: Features, LoginFeature, Feature
+
+    glue = "StepDefinition", // Confirm this is the correct package for your step definitions
+    plugin = {
+        "pretty",
+        "html:target/cucumber-reports/cucumber.html",
+        "json:target/cucumber-reports/cucumber.json",
+        "rerun:target/cucumber-reports/rerun.txt"
+    },
+    monochrome = true,
+    dryRun = false,
+    publish = true
+)
+public class TestRunner {
+    // ...
+}

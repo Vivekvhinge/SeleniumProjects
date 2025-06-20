@@ -1,0 +1,48 @@
+package Demo2.Demo2;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class FirstTestCase {
+
+	// TODO Auto-generated method stub
+
+	public static void main(String[] args) throws InterruptedException {
+
+		//for giving chromedriver path or instance ,You tell Java exactly where the 'chromedriver.exe' file is on your computer.
+		System.setProperty("webdriver.chrome.driver","D:\\selenium\\chromedriver-win64 136\\chromedriver-win64\\chromedriver.exe");
+
+
+		//Hire the Chrome Robot (open a new Chrome browser window).
+		WebDriver driver = new ChromeDriver();
+		// Tell the robot to go to the Sauce Labs website.
+		driver.get("https://admin-demo.nopcommerce.com/Admin");
+
+		//for maxing the window size
+		//driver.manage().window().maximize(); 
+		//for giving the timer 5000 means 5sec
+		//Thread.sleep(5000); 
+		//for closing the instance
+		//driver.close(); 
+		//for closing the driver instance
+		//driver.quit(); 
+
+
+		//capture and print pagetitle 
+		String title = driver.getTitle();
+		System.out.println("page title :"  + title);
+		//or
+		System.out.println("page title :"  + driver.getTitle());
+
+		//capture and print pageurl
+		System.out.println("URL :" + driver.getCurrentUrl());
+
+		//capture and print pagesource
+		System.out.println("Sources :"  + driver.getPageSource());
+
+		driver.close(); //for closing the instance
+
+
+	}
+
+}

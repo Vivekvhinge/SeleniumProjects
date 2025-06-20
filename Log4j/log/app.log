@@ -1,0 +1,5 @@
+06:53:06.312 [main]INFO  Session38_Log4j2_logging_Framework - for info only
+06:53:06.315 [main]FATAL Session38_Log4j2_logging_Framework - for fatal only
+06:53:06.315 [main]DEBUG Session38_Log4j2_logging_Framework - for debug only
+06:53:06.315 [main]ERROR Session38_Log4j2_logging_Framework - Error messages
+06:53:06.315 [main]WARN  Session38_Log4j2_logging_Framework - for info only

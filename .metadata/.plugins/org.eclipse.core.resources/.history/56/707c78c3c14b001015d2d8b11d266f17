@@ -1,0 +1,201 @@
+
+in feature file :
+scenario outline  instead of scenario 
+eg : Scenario outline : Successful login with valid credentials
+ & instead of hardcode data  like :And user enters email as "admin@yourstore.com" and password as "admin"
+USE : And user enters email as "<email>" and password as "<PASSWORD>" .[so we can store multiple data .]
+then in Examples : write the data set 
+|email|password|
+| admin@yourstore.com|admin|  <---like this ,and if u have eneter 4 data then it will execute it by 4 times
+
+
+Session#2
+---------
+Data Driven Testing
+	Scenario outline keyword
+	Examples:
+Generated Reports in HTML, JSON & XML format
+Added new feature file (Add new customer)
+	Created feature file (customers.feature)
+	Added test steps in Gherkin language
+	Created page object class for add new customer page
+	created step definition for customers.feature file 
+	Executed test script (customers.feature) using test 	runner file (run.java)
+	
+Session#3
+Added new scenarios in customers.feature file
+Scenario: Search customer by email
+Scenario: Search customer by name
+Background keyword: for common / repeating steps in scenarios  mention this in feature file below feature:
+
+eg :
+Background:steps common for all scenario
+	Given User launch chrome browser
+    When User open URL: "https://admin-demo.nopcommerce.com/login"
+    And user enters email as "admin@yourstore.com" and password as "admin"
+    And click on login
+    Then User can view Dashboad
+    
+    
+    
+
+Session#4
+A)Base class: is created in step defn file to maintain the common methods & variable .
+& extend the step den file means base class will be parent class and step defn file will be child class
+
+//create a class in baseclass for emailid so  it will create unique email id so every time we don't have to hardcoded for new mail 
+	public String generatemailid()
+	{
+		return (RandomStringUtils.randomAlphabetic(5)); //RandomStringUtils to generate random strings &randomAlphabetic for alphabet length
+	}
+	
+B)Executing multiple feature files  or stepdefintion : in testrunnerclass
+1.multiple :to run it just remove file name after feature folder:
+eg : features = "src/test/resources/Features",
+2.in that u can select a single feature file to run 
+eg : features = "src/test/resources/Features/LoginFeature.feature",
+3.to run specific feature files 
+eg : features = {"src/test/resources/Features/LoginFeature.feature","src/test/resources/Features/Customer.feature"},
+
+C)@Tags (or, and & and not operator).: 
+* You put `@something` (like `@smoke` or `@regression`) above a test in your feature file.
+* Then, in your `TestRunner` file, you tell Cucumber which groups (`@smoke`, `@regression`, etc.) you want to run.
+* You can use `and`, `or`, `not` to combine these groups.
+When defining the tags attribute in your @CucumberOptions in TestRunner.java, you use logical operators to specify which scenarios to run:
+
+tags = "@Sanity": This will run any scenario that is tagged with @Sanity. It will execute even if the scenario also has other tags.
+
+tags = "@Sanity or @Regression": This will run any scenario that is tagged with either @Sanity OR @Regression (or both).
+
+tags = "@Sanity and @Regression": This will run only those scenarios that are tagged with both @Sanity AND @Regression. it will not run like "Or" tag		
+
+tags = "@Sanity and not @Regression": This will run scenarios that are tagged with @Sanity but are not also tagged with @Regression.
+
+* This is super useful if you only want to run a quick set of "sanity" tests, or all "regression" tests, instead of running everything.
+
+
+
+
+
+
+
+
+
+
+Session#5
+Types of hooks
+Scenario hook: @Before //executed before start of each scenario execution & @After //executed after completion of each scenario execution
+Step Hooks:
+@Beforestep //executed before each step execution
+@Afterstep //is executed before after each step execution
+Conditional hook: @Before("@Sanity")
+How to capture screen shot screen shot of failed test scenarios 
+Hooks  [in step definition class] similar to TESTNG LISTERNERS 
+Hooks are block of code that runs before and after each scenario.
+type of hooks in cucumber:
+1. Scenario hooks: runs before/after each scenario.
+@Before Annotation //steps to performs before start of testing of each scenario & can give multiple before(order=0) like this. 0 ascending order small to big
+Setup code:
+To Start a web driver
+Set up of Data Base connections
+Set up of test data
+Set up of browser cookies
+Navigation to a certain page
+
+@After Annotation //steps to perform after testing of each scenario & can give multiple after(order=0) like this. 0 descending order big to small
+Cleanup/code teardown:
+To stop the web driver
+To Close DB connections
+To Clear the test data
+To Clear browser cookies
+To Log out from the application
+Printing reports or logs
+Taking the screenshots of error
+
+
+2.Step Hooks: These run before or after each individual step.
+3.Conditional Hooks: These allow you to associate hooks with tags for conditional execution, meaning they only run if the associated scenario 
+or feature has a specific tag.
+syntax :before("@sanity") ,@sanity from feature file
+
+4.how to take failed SS in stepdefn file
+create class scenario in parameter of Scenario 
+eg:@After
+	public void teardown(Scenario sc)
+	now write the same code for taking ss
+	
+	
+	
+Session#6
+Logger integration in eclipse
+Apache-Log4j 2
+
+log4j2: or refer to package log4j
+first give dependency in poml file
+second In Base class create logger object ie.public static Logger log; & import org.apache.logging.log4j.*;
+
+third in stepdefn file instantiate it ie.log=Logmanager.getlogger("stepdefn"); 
+logmanager import must be "import org.apache.logging.log4j.LogManager;"
+
+change/give  class name in log4j2.properties file
+ie.logger.file.name=Stepdef //class name to be rename    
+
+write message below drivermanger
+ie :log.info("log setup method is executed ....."); <---give this where you want the logs for methods 
+LOG LEVELS:
+		https://logging.apache.org/log4j/2.x/manual/customloglevels.html
+
+
+Session-7:
+1.Run test cases / feature file on specific browser
+2.configurtion.properties :write parameters or values in keyvaluepair and variables too, no special char to end 
+eg :key[variable]=value
+browser=chrome
+
+3.read properties : use properties class to instantiate [after config is done]
+create obj of properties in base class and instantiate in step defn class like below:
+now create obj of fileinputstream for readonly mode to open of readconfig/configproperties file
+			FileInputStream fis=new FileInputStream("config.properties");//file name given cz in same project not in folder or give filepath
+			readconfig.load(fis); //to load the fis object 
+create string obj to store the readconfigs .getproperties variable value[stored in config.properties]
+string browser=readconfig.getproperties("name of key[variable]");
+
+create a class readconfig in utilities 
+
+
+
+Session#8:
+Execute test case using pom.xml within eclipse:
+
+step1:add this plugin to pom.xml file
+<pluginManagement>
+    <!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>   //add this plugin for maven  repo
+            <version>3.0.0-M7</version>
+            <configuration>
+                <!-- Set to true to allow the build to continue even if tests fail -->
+                <testFailureIgnore>true</testFailureIgnore>
+                <!-- Include specific test runner classes by pattern -->
+                <includes>
+                    <!-- This will include any Java files ending with 'Run.java' for execution -->
+                    <include>**/*TestRunner.java</include>                        //you can testrunner or run file name the file 
+                </includes>
+            </configuration>
+        </plugin>
+    </plugins>
+</pluginManagement>
+
+after saving update this maven project and on Pom.xml<run as<maven test [to execute]
+
+         
+         
+         
+                    
+
+Execute test case outside eclipse using maven (a build tool)
+a) Command Line Interface (CLI)
+b) Batch file
+c) Jenkins

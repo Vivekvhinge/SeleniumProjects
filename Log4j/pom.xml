@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This is the XML declaration for the POM file -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <!-- Defines the version of the Project Object Model (POM) being used -->
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Project's unique identifier within a group of projects -->
+    <groupId>codeStudio1442025</groupId>
+    <!-- Project's unique identifier within the group -->
+    <artifactId>codeStudio1442025</artifactId>
+    <!-- Current version of the project -->
+    <version>0.0.1-SNAPSHOT</version>
+    <!-- Packaging type of the project (e.g., jar, war, pom) -->
+    <packaging>jar</packaging>
+
+    <!-- Name of the project -->
+    <name>codeStudio1442025</name>
+    <!-- URL for the project's website -->
+    <url>http://maven.apache.org</url>
+
+    <!-- Global properties for the project, used to define reusable values like versions -->
+    <properties>
+        <!-- Character encoding for source files during build -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Java source compatibility version -->
+        <maven.compiler.source>11</maven.compiler.source>
+        <!-- Java target compatibility version (bytecode version) -->
+        <maven.compiler.target>11</maven.compiler.target>
+
+        <!-- Core Dependencies Versions -->
+        <selenium.version>4.33.0</selenium.version>
+        <webdrivermanager.version>6.1.0</webdrivermanager.version>
+        <junit.version>4.13.2</junit.version>
+        <testng.version>7.11.0</testng.version>
+
+        <!-- Cucumber Dependencies Version -->
+        <!-- This version is used by cucumber-java, cucumber-testng, and cucumber-picocontainer -->
+        <cucumber.version>7.18.0</cucumber.version>
+
+        <!-- Logging Dependencies Versions -->
+        <!-- This version is used by log4j-api, log4j-core, and log4j-slf4j2-impl -->
+        <log4j.version>2.24.3</log4j.version>
+        <!-- log4j-slf4j.version property is removed as log4j-slf4j2-impl is preferred and aligned with log4j.version -->
+
+        <!-- Apache POI (Excel Handling) Dependencies Versions -->
+        <!-- This version is used by poi and poi-ooxml -->
+        <poi.version>5.2.5</poi.version>
+        <xmlbeans.version>5.2.0</xmlbeans.version>
+
+        <!-- Reporting Dependencies Versions -->
+        <extentreports-cucumber7-adapter.version>1.14.0</extentreports-cucumber7-adapter.version>
+        <maven-cucumber-reporting.version>5.7.1</maven-cucumber-reporting.version>
+        <reportng.version>1.1.4</reportng.version>
+
+        <!-- Utilities & Common Libraries Versions -->
+        <commons-collections4.version>4.4</commons-collections4.version>
+        <commons-io.version>2.16.1</commons-io.version>
+        <hamcrest.version>2.2</hamcrest.version>
+
+        <!-- Maven Plugin Versions -->
+        <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
+        <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
+    </properties>
+
+    <!-- Defines the project's dependencies -->
+    <dependencies>
+        <!-- Selenium for browser automation -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.version}</version>
+        </dependency>
+        <!-- WebDriverManager for automatic browser driver management -->
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>${webdrivermanager.version}</version>
+        </dependency>
+
+        <!-- Test Frameworks -->
+        <!-- TestNG for test execution -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
+            <scope>test</scope> <!-- Dependency is only needed for test compilation and execution -->
+        </dependency>
+        <!-- JUnit for test execution (commonly used with Cucumber) -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope> <!-- Dependency is only needed for test compilation and execution -->
+        </dependency>
+        <!-- Hamcrest for matchers in assertions -->
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest</artifactId>
+            <version>${hamcrest.version}</version>
+            <scope>test</scope> <!-- Dependency is only needed for test compilation and execution -->
+        </dependency>
+
+        <!-- Cucumber for BDD framework -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+            <!-- Uses cucumber.version property -->
+        </dependency>
+        <!-- Cucumber TestNG integration -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>${cucumber.version}</version> <!-- Uses cucumber.version property -->
+            <scope>test</scope> <!-- Dependency is only needed for test compilation and execution -->
+        </dependency>
+        <!-- Cucumber PicoContainer for dependency injection -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-picocontainer</artifactId>
+            <version>${cucumber.version}</version> <!-- Uses cucumber.version property -->
+            <scope>test</scope> <!-- Dependency is only needed for test compilation and execution -->
+        </dependency>
+
+        <!-- Logging with Log4j2 -->
+        <!-- Log4j2 API for logging -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j.version}</version> <!-- Uses log4j.version property -->
+        </dependency>
+        <!-- Log4j2 Core implementation -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j.version}</version> <!-- Uses log4j.version property -->
+        </dependency>
+        <!-- SLF4J binding for Log4j2 (log4j-slf4j2-impl is for SLF4J 2.x) -->
+        <!-- Note: This replaces log4j-slf4j-impl to avoid conflicts and aligns with Log4j2 version. -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j2-impl</artifactId>
+            <version>${log4j.version}</version> <!-- Uses log4j.version property -->
+            <scope>test</scope> <!-- Typically needed for test runtime logging -->
+        </dependency>
+
+        <!-- Apache POI for Excel Handling -->
+        <!-- POI core for .xls files -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>${poi.version}</version> <!-- Uses poi.version property -->
+        </dependency>
+        <!-- POI OOXML for .xlsx files -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>${poi.version}</version> <!-- Uses poi.version property -->
+        </dependency>
+        <!-- Apache XmlBeans for OOXML support -->
+        <dependency>
+            <groupId>org.apache.xmlbeans</groupId>
+            <artifactId>xmlbeans</artifactId>
+            <version>${xmlbeans.version}</version>
+        </dependency>
+
+        <!-- Reporting Libraries -->
+        <!-- ExtentReports adapter for Cucumber 7 -->
+        <dependency>
+            <groupId>tech.grasshopper</groupId>
+            <artifactId>extentreports-cucumber7-adapter</artifactId>
+            <version>${extentreports-cucumber7-adapter.version}</version>
+        </dependency>
+        <!-- Maven Cucumber Reporting for HTML reports -->
+        <dependency>
+            <groupId>net.masterthought</groupId>
+            <artifactId>maven-cucumber-reporting</artifactId>
+            <version>${maven-cucumber-reporting.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- ReportNG for TestNG HTML reports -->
+        <dependency>
+            <groupId>org.uncommons</groupId>
+            <artifactId>reportng</artifactId>
+            <version>${reportng.version}</version>
+            <scope>test</scope>
+            <!-- Note: ReportNG typically requires TestNG listener configuration,
+                 and sometimes might have compatibility nuances with newer TestNG versions. -->
+        </dependency>
+
+        <!-- Apache Commons Libraries -->
+        <!-- Commons Collections for extended collection utilities -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>${commons-collections4.version}</version>
+        </dependency>
+        <!-- Commons IO for I/O utilities -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
+        </dependency>
+
+        <!-- Extra dependency that was present in the original input. 
+             This might be a duplicate if other logging dependencies fulfill its role. -->
+        <!-- If com.aventstack/extentreports is needed, ensure its version is consistent with other reporting adapters -->
+        <!-- <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>5.0.9</version>
+        </dependency> -->
+        <!-- Removed extra hardcoded log4j dependencies -->
+
+    </dependencies>
+
+    <!-- Build configurations -->
+    <build>
+        <!-- Plugin management section to centralize plugin configurations and versions -->
+        <pluginManagement>
+            <plugins>
+                <!-- Maven Compiler Plugin to compile Java source code -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <source>${maven.compiler.source}</source> <!-- Java source version for compilation -->
+                        <target>${maven.compiler.target}</target> <!-- Java target version for compiled bytecode -->
+                    </configuration>
+                </plugin>
+                <!-- Maven Surefire Plugin to run unit tests -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                    <configuration>
+                        <!-- Includes specific test runner classes for execution -->
+                        <includes>
+                            <!-- This pattern includes files ending with 'OrangeTestrunner.java' -->
+                            <include>**/*OrangeTestrunner.java</include>
+                        </includes>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>

@@ -1,0 +1,31 @@
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Myfirst {
+
+	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
+		
+		
+		System.setProperty("webdriver.chrome.driver", 
+				"D:\\selenium\\chromedriver-win64 136\\chromedriver-win64\\chromedriver.exe");
+		//for giving cromedriver path or instance 
+		
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://www.saucedemo.com/v1/");
+		
+		driver.manage().window().maximize(); //for maxing the window size
+		//Thread.sleep(5000); //for giving the timer 
+		//driver.close(); //for closing the instance
+		//driver.quit(); //for closing the driver instance
+		
+		String title = driver.getTitle();
+		System.out.println("page title :"  + title);
+		System.out.println("URL :" + driver.getCurrentUrl());
+		
+		
+		
+	
+	}
+
+}

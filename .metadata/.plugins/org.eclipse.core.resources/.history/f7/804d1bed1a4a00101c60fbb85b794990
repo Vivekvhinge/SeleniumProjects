@@ -1,0 +1,57 @@
+package Demo2.Demo2;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Session16_CaptureScreenshot {
+
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		System.setProperty("webdriver.chrome.driver", "D:\\selenium\\chromedriver-win64 136\\chromedriver-win64\\chromedriver.exe");
+		WebDriver driver=new ChromeDriver();
+
+		driver.manage().window().maximize();//max the window sixe
+
+
+		driver.get("https://www.facebook.com/"); //open webpage
+
+		//scenario 3:capture full screenshot
+		/*
+		//Step1:convert webdriver object to take screenshot interface 
+		 * //takeSS is class for taking SS ,instantiate with webdriver to capture
+		TakesScreenshot ss= ((TakesScreenshot)driver);  //instantiate with driver cz with webdriver obj only we can use it
+
+		//step2:call get screenshot as a method to create image file 
+		File source=ss.getScreenshotAs(OutputType.FILE); //outputtype is type for ss output
+		File destination=new File("C:\\Users\\Admin\\eclipse-workspace\\Demo2\\Screenshot\\fullpage1.png"); //ss file to be saved with file type 
+
+		//step3:copy image file to destination 
+		FileUtils.copyFile(source, destination);             */
+
+
+		///////scenario 2:capture SECTION  screenshot OF THE WEBPAGE //////////////
+		//Step1:convert webdriver object to take screenshot interface 
+		//WebElement section=driver.findElement(By.xpath("//div[@class='_6luv _52jv']"));
+		///and
+		//scenario3 :particular webelement
+		WebElement section=driver.findElement(By.xpath("//button[@name='login']"));
+
+
+		//step2:call get screenshot as a method to create image file 
+		File source=section.getScreenshotAs(OutputType.FILE); //source path 
+		File destination=new File("C:\\Users\\Admin\\eclipse-workspace\\Demo2\\Screenshot\\test1.png"); //ss file to be saved with file type 
+
+		//step3:copy image file to destination 
+		FileUtils.copyFile(source, destination);
+
+	}
+
+}

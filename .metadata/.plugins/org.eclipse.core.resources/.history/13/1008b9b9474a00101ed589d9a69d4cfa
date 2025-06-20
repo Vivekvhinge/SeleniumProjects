@@ -1,0 +1,30 @@
+# name=PropertiesConfig
+ 
+property.filename = logs
+appenders = console, file #means showing logs in console or file
+
+
+appender.console.type = Console  #showing in console
+appender.console.name = STDOUT  #name of console
+appender.console.layout.type = PatternLayout   #type of console
+appender.console.layout.pattern = [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n  #pattern for console
+
+
+appender.file.type = File  #showing in file
+appender.file.name = LOGFILE  #filename
+appender.file.fileName=C:\Users\Admin\eclipse-workspace\CucumberFramework\logs\app.log  #filepath
+appender.file.layout.type=PatternLayout #type of file
+appender.file.layout.pattern=[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n  #pattren 
+
+
+loggers=StepdefLogger # Renamed to avoid confusion with `file` appender
+logger.StepdefLogger.name=StepDefinition.Stepdef # Fully qualified class name
+logger.StepdefLogger.level = debug   #levels for logging (debug, info, warn, error, fatal)
+logger.StepdefLogger.appenderRefs = file, console # Send logs to both file and console
+logger.StepdefLogger.appenderRef.file.ref = LOGFILE
+logger.StepdefLogger.appenderRef.console.ref = STDOUT # Reference the STDOUT appender for console output
+
+# Root logger - logs everything not caught by specific loggers
+rootLogger.level = off # Keep off if you only want explicitly configured loggers to output
+rootLogger.appenderRefs = stdout # This line is often redundant if rootLogger.level is 'off'
+rootLogger.appenderRef.stdout.ref = STDOUT # This line is often redundant if rootLogger.level is 'off'
